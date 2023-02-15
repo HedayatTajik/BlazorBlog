@@ -1,0 +1,29 @@
+﻿@page "/blogpost"
+@using BlazorBlog.Shared
+<h3>BlogPost</h3>
+
+@foreach (var post in Posts)
+{
+    <div style="margin: 15px; padding: 10px; border: solid gray 1px">
+    <div >
+        <h3>
+            @post.Title
+        </h3>
+    </div>
+    <div>
+        @post.Description
+    </div>
+    </div>
+}
+
+
+
+
+
+@code {
+    public List<BlogPost> Posts { get; set; } = new List<BlogPost>()
+    {
+        new BlogPost { Title ="A new Tutorial about Blazor", Description ="This is a new tutorial, shoing you how to build a blog with BLazor ", Author ="Hedayat" },
+        new BlogPost { Title ="My first BlogPost", Description ="Hi this is my new Blog ", Author ="Tajik" },
+    };
+}

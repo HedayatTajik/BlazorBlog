@@ -1,0 +1,19 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/BlazorBlog/FileContentIndex
+/.vs/BlazorBlog/v17
+/BlazorBlog/Client/bin/Debug/net7.0/wwwroot/_framework
+/BlazorBlog/Client/bin/Debug/net7.0
+/BlazorBlog/Client/obj
+/.vs
+/BlazorBlog/Shared/bin/Debug/net7.0
+/BlazorBlog/Shared/obj
+/BlazorBlog/Server/bin/Debug/net7.0/BlazorDebugProxy
+/BlazorBlog/Server/bin/Debug/net7.0
+/BlazorBlog/Server/obj/Debug/net7.0/ref
+/BlazorBlog/Server/obj/Debug/net7.0/refint
+/BlazorBlog/Server/obj/Debug/net7.0/staticwebassets
+/BlazorBlog/Server/obj/Debug/net7.0
+/BlazorBlog/Server/obj
