@@ -1,18 +1,22 @@
 ﻿@page "/blogpost"
 @using BlazorBlog.Shared
+@inject BlazorBlog.Client.Services.IBlogService BlogService;
 <h3>BlogPost</h3>
 
 @foreach (var post in Posts)
 {
     <div style="margin: 15px; padding: 10px; border: solid gray 1px">
-    <div >
-        <h3>
-            @post.Title
-        </h3>
-    </div>
-    <div>
-        @post.Description
-    </div>
+        <div>
+            <h3>
+                @post.Title
+            </h3>
+        </div>
+        <div>
+            @post.Description
+        </div>
+        <div>
+            <a href="/posts/@post.Url" >Read more...</a>
+        </div>
     </div>
 }
 
@@ -21,9 +25,9 @@
 
 
 @code {
-    public List<BlogPost> Posts { get; set; } = new List<BlogPost>()
+    public List<BlogPost> Posts = new List<BlogPost>();
+    protected override async Task OnInitializedAsync()
     {
-        new BlogPost { Title ="A new Tutorial about Blazor", Description ="This is a new tutorial, shoing you how to build a blog with BLazor ", Author ="Hedayat" },
-        new BlogPost { Title ="My first BlogPost", Description ="Hi this is my new Blog ", Author ="Tajik" },
-    };
+        Posts =  await BlogService.GetBlogPosts();
+    }
 }
