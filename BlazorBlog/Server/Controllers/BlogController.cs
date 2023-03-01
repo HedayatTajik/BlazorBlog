@@ -34,6 +34,15 @@ namespace BlazorBlog.Server.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<ActionResult<BlogPost>> CreateNewBlogPost(BlogPost request)
+        {
+            _context.Add(request);
+            await _context.SaveChangesAsync();
+            return request;
+        }
+
+
 
 
     }

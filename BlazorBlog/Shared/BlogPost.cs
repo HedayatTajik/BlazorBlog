@@ -16,5 +16,7 @@ namespace BlazorBlog.Shared
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public bool IsDeleted { get; set; } = false;
         public bool IsPublished { get; set; } = false;
+
+        public string Name {get; set;} = string.Empty;
     }
 }

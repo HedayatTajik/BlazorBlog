@@ -1,5 +1,8 @@
 ﻿@page "/create"
 @using System.Text.Json;
+@inject BlazorBlog.Client.Services.IBlogService blogService
+@inject NavigationManager Navigationmanager
+@using BlazorBlog.Shared;
 <h3>Create a new BLog Post</h3>
 
 <EditForm Model="@newBlogPost" OnValidSubmit="CreateNewBlogPost">
@@ -60,9 +63,12 @@
 </EditForm>
 
 @code {
-    BlazorBlog.Shared.BlogPost newBlogPost = new BlazorBlog.Shared.BlogPost();
-    void CreateNewBlogPost()
+    BlogPost newBlogPost = new BlogPost();
+    async Task CreateNewBlogPost()
     {
-        Console.WriteLine(JsonSerializer.Serialize(newBlogPost));
+        var result = await blogService.CreateNewBlogPost(newBlogPost);
+        Console.WriteLine(JsonSerializer.Serialize(result));
+        Navigationmanager.NavigateTo($"posts/{result.Url}");
+
     }
 }

@@ -33,5 +33,11 @@ namespace BlazorBlog.Client.Services
         {
             return await _http.GetFromJsonAsync<List<BlogPost>>("api/Blog/");
         }
+
+        public async Task<BlogPost> CreateNewBlogPost(BlogPost request)
+        {
+            var result = await _http.PostAsJsonAsync("api/Blog", request);
+            return await result.Content.ReadFromJsonAsync<BlogPost>();
+        }
     }
 }
