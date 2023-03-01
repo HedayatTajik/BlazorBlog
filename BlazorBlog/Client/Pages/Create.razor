@@ -6,14 +6,20 @@
 <h3>Create a new BLog Post</h3>
 
 <EditForm Model="@newBlogPost" OnValidSubmit="CreateNewBlogPost">
-    <DataAnnotationsValidator/>
+    <DataAnnotationsValidator />
     <div class="form-group">
         <label for=" title">
             Title
         </label>
-        <InputText id="title" @bind-Value="newBlogPost.Title" class="form-control" ></InputText>
-        <ValidationMessage For="@(() => newBlogPost.Title)"/>
+        <InputText id="title" @bind-Value="newBlogPost.Title" class="form-control"></InputText>
+        <ValidationMessage For="@(() => newBlogPost.Title)" />
     </div>
+
+
+        <div class="form-control-file mt-2">
+            <label for="image">Image</label>
+            <InputFile OnChange="OnFileChange"></InputFile>
+        </div>
 
     <div class="form-group">
         <label for="content">
@@ -67,8 +73,17 @@
     async Task CreateNewBlogPost()
     {
         var result = await blogService.CreateNewBlogPost(newBlogPost);
-        Console.WriteLine(JsonSerializer.Serialize(result));
         Navigationmanager.NavigateTo($"posts/{result.Url}");
 
+    }
+
+    async Task OnFileChange(InputFileChangeEventArgs e)
+    {
+        var format = "image/png";
+        var resizeImage = await e.File.RequestImageFileAsync(format, 300, 300);
+        var buffer = new byte[resizeImage.Size];
+        await resizeImage.OpenReadStream().ReadAsync(buffer);
+        var imageData = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+        newBlogPost.Image = imageData;
     }
 }

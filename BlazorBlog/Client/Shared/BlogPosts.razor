@@ -7,6 +7,11 @@
 {
     <div style="margin: 15px; padding: 10px; border: solid gray 1px">
         <div>
+            <img src="@post.Image" width="200" />
+
+        </div>
+
+        <div>
             <h3>
                 @post.Title
             </h3>
@@ -15,7 +20,7 @@
             @post.Description
         </div>
         <div>
-            <a href="/posts/@post.Url" >Read more...</a>
+            <a href="/posts/@post.Url">Read more...</a>
         </div>
     </div>
 }
@@ -28,6 +33,6 @@
     public List<BlogPost> Posts = new List<BlogPost>();
     protected override async Task OnInitializedAsync()
     {
-        Posts =  await BlogService.GetBlogPosts();
+        Posts = await BlogService.GetBlogPosts();
     }
 }
