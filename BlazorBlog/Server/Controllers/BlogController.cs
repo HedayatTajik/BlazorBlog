@@ -1,4 +1,5 @@
-﻿using BlazorBlog.Shared;
+﻿using BlazorBlog.Server.Data;
+using BlazorBlog.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorBlog.Server.Controllers
@@ -7,23 +8,24 @@ namespace BlazorBlog.Server.Controllers
     [ApiController]
     public class BlogController : ControllerBase
     {
-        public List<BlogPost> Posts { get; set; } = new List<BlogPost>()
-    {
-        new BlogPost { Url = "new-Tutorial",  Title ="A new Tutorial about Blazor from API", Description ="This is a new tutorial, shoing you how to build a blog with BLazor ", Content="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.", Author ="Hedayat" },
+        private readonly DataContext _context;
 
-        new BlogPost { Url = "first-Post", Title ="My first BlogPost", Description ="Hi this is my new Blog ", Content="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.", Author ="Tajik" },
-    };
+        public BlogController(DataContext context)
+        {
+            _context = context;
+
+        }
 
         [HttpGet]
         public ActionResult<List<BlogPost>> List()
         {
-            return Ok(Posts);
+            return Ok(_context.BlogPost);
         }
 
         [HttpGet("{url}")]
         public ActionResult<BlogPost> Get(string url)
         {
-            var post = Posts.FirstOrDefault(p => p.Url.ToLower().Equals(url.ToLower()));
+            var post = _context.BlogPost.FirstOrDefault(p => p.Url.ToLower().Equals(url.ToLower()));
             if (post == null)
             {
                 return NotFound("url not found");
